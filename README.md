@@ -1,24 +1,3 @@
-# myspace
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# myspace树洞
+***
+## 整个网站的实现类似于QQ空间、贴吧、微博，每个人可以自己发帖，可以关注他人。
