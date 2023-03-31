@@ -30,15 +30,12 @@
 </nav>
 </template>
 
-
 <script>
 export default {
-    name: "NavBar", 
+  name: "NavBar"
 }
 </script>
 
-<!-- <style>加上"scoped"之后，不同组件之间的CSS选择器就不会相互影响到了。
-     让每一个选择器最后再去返回到前端时，它会给其加上一个随机值。 -->
+<!-- <style>加上"scoped"之后，不同组件之间的CSS选择器就不会相互影响到了。让每一个选择器最后再去返回到前端时，它会给其加上一个随机值。 -->
 <style scoped>
-
 </style>
