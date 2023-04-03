@@ -3,23 +3,27 @@
   <ContentBase>
     <div class="row">
       <div class="col-3">
-        <UserProfileInfo/>
+        <UserProfileInfo />
       </div>
-      <div class="col-9">帖子列表</div>
+      <div class="col-9">
+        <UserProfilePosts />
+      </div>
     </div>
   </ContentBase>
 </template>
 
 <script>
 import ContentBase from '../components/ContentBase'; 
-import UserProfileInfo from '../components/UserProfileInfo.vue';
+import UserProfileInfo from '../components/UserProfileInfo';
+import UserProfilePosts from '../components/UserProfilePosts';
 
 export default {
   name: 'UserProfile', 
   // component表示在template区域会用到哪些其他的组件，把所有用到的组件全部放到component里面。
   components: {
     ContentBase,
-    UserProfileInfo
+    UserProfileInfo, 
+    UserProfilePosts
   }
 }
 </script>
