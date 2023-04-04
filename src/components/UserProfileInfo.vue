@@ -7,7 +7,7 @@
                     <img  class="img-fluid" src="https://cdn.acwing.com/media/user/profile/photo/129450_lg_33f926f237.jpg">
                 </div>
                 <div class="vol-9">
-                    <div class="username">{{user.userName}}</div>
+                    <div class="username">{{fullName}}</div>
                     <div class="fans">粉丝：{{user.followerCount}}</div>
                     <!-- 控制图标大小的属性：btn-sm（小图标），btn-lg（大图标） -->
                     <button type="button" class="btn btn-secondary btn-sm">🔔 关注</button>
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+
 export default {
     name: 'UserProfileInfo', 
     // 在子组件里接收父组件传递的参数
@@ -28,6 +30,15 @@ export default {
             required: true, 
         }, 
     }, 
+    // 动态的去计算某个属性：setup()函数需要传入参数props，因为setup()里面是没有this这个属性的。
+    setup(props) {
+        // 因为值是需要被动态计算的，所以需要传入一个函数
+        let fullName = computed(() => props.user.firstName + ' ' + props.user.lastName);
+
+        return {
+            fullName
+        }
+    }
 }
 </script>
 
