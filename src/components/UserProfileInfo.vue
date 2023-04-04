@@ -7,8 +7,8 @@
                     <img  class="img-fluid" src="https://cdn.acwing.com/media/user/profile/photo/129450_lg_33f926f237.jpg">
                 </div>
                 <div class="vol-9">
-                    <div class="username">Scribouillard</div>
-                    <div class="fans">粉丝：250</div>
+                    <div class="username">{{user.userName}}</div>
+                    <div class="fans">粉丝：{{user.followerCount}}</div>
                     <!-- 控制图标大小的属性：btn-sm（小图标），btn-lg（大图标） -->
                     <button type="button" class="btn btn-secondary btn-sm">🔔 关注</button>
                 </div>
@@ -20,7 +20,14 @@
 
 <script>
 export default {
-    name: 'UserProfileInfo'
+    name: 'UserProfileInfo', 
+    // 在子组件里接收父组件传递的参数
+    props: {
+        user: {
+            type: Object, 
+            required: true, 
+        }, 
+    }, 
 }
 </script>
 
@@ -35,7 +42,7 @@ img{
 }
 
 .fans {
-    font-size: 12px;
+    font-size: 12px;    
     color: gra;
 }
 

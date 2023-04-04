@@ -3,9 +3,10 @@
   <ContentBase>
     <div class="row">
       <div class="col-3">
-        <UserProfileInfo />
+        <!-- 绑定父组件的user属性 -->
+        <UserProfileInfo :user="user" />
       </div>
-      <div class="col-9">
+      <div class="col-9">                                                                   
         <UserProfilePosts />
       </div>
     </div>
@@ -16,6 +17,7 @@
 import ContentBase from '../components/ContentBase'; 
 import UserProfileInfo from '../components/UserProfileInfo';
 import UserProfilePosts from '../components/UserProfilePosts';
+import { reactive } from 'vue';
 
 export default {
   name: 'UserProfile', 
@@ -24,6 +26,21 @@ export default {
     ContentBase,
     UserProfileInfo, 
     UserProfilePosts
+  }, 
+  // 存储数据
+  setup() {
+    const user = reactive({
+      id: 1, 
+      userName: "Aubrey Chen", 
+      lastName: "Chen", 
+      firstName: "Aubrey", 
+      followerCount: 0, 
+      is_followed: false, 
+    });
+
+    return {
+      user, 
+    }
   }
 }
 </script>
