@@ -10,7 +10,8 @@
                     <div class="username">{{fullName}}</div>
                     <div class="fans">粉丝：{{user.followerCount}}</div>
                     <!-- 控制图标大小的属性：btn-sm（小图标），btn-lg（大图标） -->
-                    <button type="button" class="btn btn-secondary btn-sm">🔔 关注</button>
+                    <button @click="follow" v-if="!user.is_followed" type="button" class="btn btn-secondary btn-sm">🔔 关注</button>
+                    <button @click="unfollow" v-if="user.is_followed" type="button" class="btn btn-secondary btn-sm">取消关注</button>
                 </div>
             </div> 
         </div>
@@ -31,15 +32,26 @@ export default {
         }, 
     }, 
     // 动态的去计算某个属性：setup()函数需要传入参数props，因为setup()里面是没有this这个属性的。
-    setup(props) {
+    setup(props, context) {
         // 因为值是需要被动态计算的，所以需要传入一个函数
         let fullName = computed(() => props.user.firstName + ' ' + props.user.lastName);
 
+        // “关注”事件的函数
+        const follow = () => {
+            context.emit("follow");
+        };
+        // “取消关注”事件的函数
+        const unfollow = () => {
+            context.emit("unfollow");
+        };
+
         return {
-            fullName
-        }
-    }
-}
+            fullName, 
+            follow, 
+            unfollow, 
+        }; 
+    }, 
+}; 
 </script>
 
 <style scoped>

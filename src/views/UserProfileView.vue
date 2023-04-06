@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-3">
         <!-- 绑定父组件的user属性 -->
-        <UserProfileInfo :user="user" />
+        <UserProfileInfo @follow="follow" @unfollow="unfollow" :user="user" />
       </div>
       <div class="col-9">                                                                   
         <UserProfilePosts />
@@ -38,11 +38,25 @@ export default {
       is_followed: false, 
     });
 
+    const follow = () => {
+      if (user.is_followed) return;
+      user.is_followed = true;
+      user.followerCount ++ ;
+    };
+
+    const unfollow = () => {
+      if (!user.is_followed) return;
+      user.is_followed = false;
+      user.followerCount -- ;
+    };
+
     return {
       user, 
-    }
-  }
-}
+      follow, 
+      unfollow, 
+    };
+  }, 
+};
 </script>
 
 <style scoped>
