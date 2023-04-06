@@ -7,7 +7,7 @@
         <UserProfileInfo @follow="follow" @unfollow="unfollow" :user="user" />
       </div>
       <div class="col-9">                                                                   
-        <UserProfilePosts />
+        <UserProfilePosts :posts="posts" />
       </div>
     </div>
   </ContentBase>
@@ -29,6 +29,7 @@ export default {
   }, 
   // 存储数据
   setup() {
+    // 用户信息
     const user = reactive({
       id: 1, 
       userName: "Aubrey Chen", 
@@ -36,6 +37,28 @@ export default {
       firstName: "Aubrey", 
       followerCount: 0, 
       is_followed: false, 
+    });
+
+    // 帖子列表
+    const posts = reactive({
+      count: 3, 
+      posts: [
+        {
+          id: 1, 
+          userId: 1, 
+          content: "《Hello World》真心好看！", 
+        }, 
+        {
+          id: 2, 
+          userId: 1, 
+          content: "四月是你的谎言···", 
+        }, 
+        {
+          id: 3, 
+          userId: 1, 
+          content: "决定我们的不是过去的经历，而是赋予经历的意义。"
+        }
+      ], 
     });
 
     const follow = () => {
@@ -54,6 +77,7 @@ export default {
       user, 
       follow, 
       unfollow, 
+      posts, 
     };
   }, 
 };
