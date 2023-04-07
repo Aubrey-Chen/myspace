@@ -5,7 +5,8 @@
       <div class="col-3">
         <!-- 绑定父组件的user属性 -->
         <UserProfileInfo @follow="follow" @unfollow="unfollow" :user="user" />
-        <UserProfileWrite />
+        <!-- 父组件的post_a_post事件触发之后，会调用父组件的post_a_post函数 -->
+        <UserProfileWrite @post_a_post="post_a_post" />  
       </div>
       <div class="col-9">                                                                   
         <UserProfilePosts :posts="posts" />
@@ -63,10 +64,7 @@ export default {
         }
       ], 
     });
-
-    // 发帖功能 
     
-
     const follow = () => {
       if (user.is_followed) return;
       user.is_followed = true;
@@ -79,11 +77,21 @@ export default {
       user.followerCount -- ;
     };
 
+    const post_a_post = (content) => {
+      posts.count ++ ;
+      posts.posts.unshift({
+        id: posts.count, 
+        userId: 1, 
+        content: content, 
+      });       
+    };
+
     return {
       user, 
       follow, 
       unfollow, 
       posts, 
+      post_a_post, 
     };
   }, 
 };
