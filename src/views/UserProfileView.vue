@@ -5,6 +5,7 @@
       <div class="col-3">
         <!-- 绑定父组件的user属性 -->
         <UserProfileInfo @follow="follow" @unfollow="unfollow" :user="user" />
+        <UserProfileWrite />
       </div>
       <div class="col-9">                                                                   
         <UserProfilePosts :posts="posts" />
@@ -17,6 +18,7 @@
 import ContentBase from '../components/ContentBase'; 
 import UserProfileInfo from '../components/UserProfileInfo';
 import UserProfilePosts from '../components/UserProfilePosts';
+import UserProfileWrite from '../components/UserProfileWrite';
 import { reactive } from 'vue';
 
 export default {
@@ -25,7 +27,8 @@ export default {
   components: {
     ContentBase,
     UserProfileInfo, 
-    UserProfilePosts
+    UserProfilePosts, 
+    UserProfileWrite, 
   }, 
   // 存储数据
   setup() {
@@ -60,6 +63,9 @@ export default {
         }
       ], 
     });
+
+    // 发帖功能 
+    
 
     const follow = () => {
       if (user.is_followed) return;
