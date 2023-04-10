@@ -21,6 +21,7 @@ import UserProfileInfo from '../components/UserProfileInfo';
 import UserProfilePosts from '../components/UserProfilePosts';
 import UserProfileWrite from '../components/UserProfileWrite';
 import { reactive } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default {
   name: 'UserProfile', 
@@ -33,6 +34,11 @@ export default {
   }, 
   // 存储数据
   setup() {
+    // 获取页面链接里的参数userId
+    const route = useRoute();
+    const userId = route.params.userId;
+    console.log(userId);
+
     // 用户信息
     const user = reactive({
       id: 1, 
