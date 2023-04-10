@@ -15,29 +15,35 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/userlist',
+    path: '/userlist/',
     name: 'userlist',
     component: UserListView
   },
   {
-    path: '/userprofile',
+    path: '/userprofile/',
     name: 'userprofile',
     component: UserProfileView
   },
   {
-    path: '/login',
+    path: '/login/',
     name: 'login',
     component: LoginView
   },
   {
-    path: '/register',
+    path: '/register/',
     name: 'register',
     component: RegisterView
   },
   {
-    path: '/404',
+    path: '/404/',
     name: '404',
     component: NotFoundView
+  }, 
+  {
+    // 正则表达式表示：可以匹配任意字符串
+    path: '/:catchAll(.*)', 
+    // 重定向到404页面
+    redirect: '/404/'                            
   }
 ]
 
