@@ -3,7 +3,8 @@
   <ContentBase>
     <div class="row justify-content-md-center">
       <div class="col-3">
-        <form>
+        <!-- .prevent表示阻止默认的提交事件行为 -->
+        <form @submit.prevent="login">
           <div class="mb-3">
             <label for="username" class="form-label">用户名</label>
             <!-- 用v-model属性将username与<input>双向绑定起来 -->
@@ -39,10 +40,15 @@ export default {
     let password = ref('');
     let error_message = ref('');
 
+    const login = () => {
+      console.log(username.value, password.value);
+    };
+
     return {
       username, 
       password, 
       error_message, 
+      login, 
     };
   }, 
 };
