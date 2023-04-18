@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 const userModule = {
     state: {
       id: "", 
@@ -5,20 +7,26 @@ const userModule = {
       photo: "", 
       folllowerCount: 0, 
     }, 
-    getters: {
-      fullName(state) { 
-        return state.user.firstName + state.user.lastName;
-      }, 
+     getters: {
+
     },
     mutations: {
-      updateUser(state, user) {
-        state.user.userName = user.userName;
-      }, 
+ 
     },
     actions: {
-      updateUser(context) {
-        let resp;
-      },
+      login(context, data) {
+        $.ajax({
+          url: "https://app165.acapp.acwing.com.cn/api/token/", 
+          type: "POST", 
+          data: {
+            username: data.username, 
+            password: data.password, 
+          }, 
+          success: function(response) {
+            console.log(response);
+          }, 
+        });
+      }, 
     },
     modules: {
     }

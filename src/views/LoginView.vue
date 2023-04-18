@@ -27,6 +27,7 @@
 <script>
 import ContentBase from '../components/ContentBase';
 import { ref } from 'vue';  // 响应式变量需要用到ref或reactive
+import { useStore } from 'vuex';  // 在Login里调用store里的API
 
 
 export default {
@@ -36,12 +37,24 @@ export default {
     ContentBase, 
   }, 
   setup() {
+    const store = useStore();
+
     let username = ref('');
     let password = ref('');
     let error_message = ref('');
 
     const login = () => {
-      console.log(username.value, password.value);
+      store.dispatch("login", {
+        username: username.value, 
+        password: password.value, 
+        success(resp) {
+          const {access, refresh} = resp;
+          console.log({access, refresh});
+        }, 
+        error() {
+          console.log("failed");
+        }, 
+      });
     };
 
     return {
