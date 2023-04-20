@@ -26,6 +26,9 @@ const userModule = {
       state.refresh = user.refresh;
       state.is_login = user.is_login;
     }, 
+    updateAccess(state, access) {
+      state.access = access; 
+    }, 
   },
   actions: {
     login(context, data) {
@@ -40,6 +43,19 @@ const userModule = {
           const {access, refresh} = resp;
           // jwt解码
           const access_obj = jwt_decode(access);
+          // 每隔五分钟刷新获取一次access访问令牌（不能写在mutations里面，因为mutations不能支持异步）
+          setInterval(() => {
+            $.ajax({
+              url: "https://app165.acapp.acwing.com.cn/api/token/refresh/", 
+              type: "POST", 
+              data: {
+                refresh, 
+              }, 
+              success(resp) {
+                context.commit("updateAccess", resp.access);
+              }, 
+            }); 
+          }, 4.5 * 60 * 1000);
           // 根据user_id获取用户信息
           $.ajax({
             url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/", 
