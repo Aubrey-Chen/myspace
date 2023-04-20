@@ -28,7 +28,7 @@
 import ContentBase from '../components/ContentBase';
 import { ref } from 'vue';  // 响应式变量需要用到ref或reactive
 import { useStore } from 'vuex';  // 在LoginView中调用store里的API
-
+import router from '@/router/index';
 
 export default {
   name: 'LoginView', 
@@ -44,15 +44,17 @@ export default {
     let error_message = ref('');
 
     const login = () => {
+      // 每次登录时先清空一下error_message
+      error_message.value = "";
       store.dispatch("login", {
         username: username.value, 
         password: password.value, 
         success() {
-          console.log("success");
-          
+          // 用户登录成功跳转到好友列表页面
+          router.push({name: 'userlist'});
         }, 
         error() {
-          console.log("failed");
+          error_message.value = "用户名或密码错误";
         }, 
       });
     };
