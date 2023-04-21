@@ -35,7 +35,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" style="cursor: pointer">退出</a>
+          <a class="nav-link" style="cursor: pointer" @click="logout">退出</a>
         </li>
       </ul>
     </div>
@@ -44,9 +44,22 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';  //// 在NavBar中调用store里的API
+
 export default {
-  name: "NavBar"
-}
+  name: "NavBar", 
+  setup() {
+    const store = useStore();
+    const logout = () => {
+      // 若调用mutations里的API时则用commit()；若调用actions里的API时则用dispatch()
+      store.commit("logout");
+    }; 
+
+    return {
+      logout, 
+    }; 
+  }, 
+}; 
 </script>
 
 <!-- <style>加上"scoped"之后，不同组件之间的CSS选择器就不会相互影响到了。让每一个选择器最后再去返回到前端时，它会给其加上一个随机值。 -->
