@@ -1,7 +1,7 @@
 <template>
   <!-- 将“好友列表”渲染到ContentBase里面 -->
   <ContentBase>
-    <div class="card" v-for="user in users" :key="user.id">
+    <div class="card" v-for="user in users" :key="user.id" @click="open_user_profile(user.id)">
       <div class="card-body">
         <div class="row">
           <div class="col-1">
@@ -22,6 +22,8 @@
 import ContentBase from '../components/ContentBase'; 
 import $ from 'jquery';
 import { ref } from 'vue';
+import router from '@/router/index';
+import { useStore } from 'vuex'; 
 
 export default {
   name: 'UserList',
@@ -30,6 +32,7 @@ export default {
     ContentBase, 
   }, 
   setup() {
+    const store = useStore();
     let users = ref([]);
 
     // 从云端动态获取用户
@@ -42,8 +45,25 @@ export default {
       }, 
     });
 
+    // 打开一个userId用户的UserProfile辅助函数，实现访问游客跳转到登录页面
+    const open_user_profile = userId => {
+      if (store.state.user.is_login) {
+        router.push({
+          name: "userprofile", 
+          params: {
+            userId, 
+          }, 
+        }); 
+      } else {
+        router.push({
+          name: "login", 
+        });
+      }
+    }; 
+
     return {
       users, 
+      open_user_profile, 
     };
   }, 
 }; 
