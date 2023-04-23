@@ -22,6 +22,8 @@ import UserProfilePosts from '../components/UserProfilePosts';
 import UserProfileWrite from '../components/UserProfileWrite';
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
+import $ from 'jquery';
+import { useStore } from 'vuex';
 
 export default {
   name: 'UserProfile', 
@@ -34,43 +36,67 @@ export default {
   }, 
   // 存储数据
   setup() {
+    const store = useStore();
     // 获取页面链接里的参数userId
     const route = useRoute();
     const userId = route.params.userId;
-    console.log(userId);
+    // console.log(userId);
 
     // 用户信息
-    const user = reactive({
-      id: 1, 
-      userName: "Aubrey Chen", 
-      lastName: "Chen", 
-      firstName: "Aubrey", 
-      followerCount: 0, 
-      is_followed: false, 
-    });
+    const user = reactive({});
+    // const user = reactive({
+    //   id: 1, 
+    //   userName: "Aubrey Chen", 
+    //   lastName: "Chen", 
+    //   firstName: "Aubrey", 
+    //   followerCount: 0, 
+    //   is_followed: false, 
+    // });
 
     // 帖子列表
-    const posts = reactive({
-      count: 3, 
-      posts: [
-        {
-          id: 1, 
-          userId: 1, 
-          content: "《Hello World》真心好看！", 
-        }, 
-        {
-          id: 2, 
-          userId: 1, 
-          content: "四月是你的谎言···", 
-        }, 
-        {
-          id: 3, 
-          userId: 1, 
-          content: "决定我们的不是过去的经历，而是赋予经历的意义。"
-        }
-      ], 
-    });
+    const posts = reactive({});
+    // const posts = reactive({
+    //   count: 3, 
+    //   posts: [
+    //     {
+    //       id: 1, 
+    //       userId: 1, 
+    //       content: "《Hello World》真心好看！", 
+    //     }, 
+    //     {
+    //       id: 2, 
+    //       userId: 1, 
+    //       content: "四月是你的谎言···", 
+    //     }, 
+    //     {
+    //       id: 3, 
+    //       userId: 1, 
+    //       content: "决定我们的不是过去的经历，而是赋予经历的意义。"
+    //     }
+    //   ], 
+    // });
     
+    $.ajax({
+      // 获取某个用户信息的API
+      url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/", 
+      type: "GET", 
+      data: {
+        user_id: userId, 
+      }, 
+      // 获取JWT验证
+      headers: {
+        'Authorization': "Bearer " + store.state.user.access, 
+      }, 
+      // 获取成功更新用户信息
+      success(resp) {
+        user.id = resp.id;
+        user.username = resp.username;
+        user.photo = resp.photo;
+        user.followerCount = resp.followerCount;
+        user.is_followed = resp.is_followed;
+      }, 
+    });
+
     const follow = () => {
       if (user.is_followed) return;
       user.is_followed = true;

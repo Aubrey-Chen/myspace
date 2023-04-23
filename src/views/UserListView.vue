@@ -4,7 +4,7 @@
     <div class="card" v-for="user in users" :key="user.id" @click="open_user_profile(user.id)">
       <div class="card-body">
         <div class="row">
-          <div class="col-1">
+          <div class="col-1 img-field">
             <!-- 前面加上':'，后面的值就不是一个普通的字符串了，而是会把字符串里的内容取值；自适应的样式：img-fluid -->
             <img class="img-fluid" :src="user.photo" alt="">
           </div>
@@ -97,6 +97,16 @@ img {
   font-size: 12px;
   color: gray;
   height: 50%;
+}
+
+/* “好友列表”页面中的头像居中效果 */
+.img-field {
+    /* 用flex来设置居中效果 */
+    display: flex;
+    /* 竖直方向居中，把主轴变成垂直方向 */
+    flex-direction: column;
+    /* 居中 */
+    justify-content: center;
 }
 </style>
   
