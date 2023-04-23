@@ -3,12 +3,13 @@
     <div class="card">
         <div class="card-body">
            <div class="row">
-                <div class="col-3">
-                    <img  class="img-fluid" src="https://cdn.acwing.com/media/user/profile/photo/129450_lg_33f926f237.jpg">
+                <div class="col-3 img-field">
+                    <img  class="img-fluid" :src="user.photo" alt="">
                 </div>
-                <div class="vol-9">
-                    <div class="username">{{fullName}}</div>
-                    <div class="fans">粉丝：{{user.followerCount}}</div>
+                <div class="col-9">
+                    <!-- <div class="username">{{ fullName }}</div> -->
+                    <div class="username">{{ user.username   }}</div>
+                    <div class="fans">粉丝：{{ user.followerCount }}</div>
                     <!-- 控制图标大小的属性：btn-sm（小图标），btn-lg（大图标） -->
                     <button @click="follow" v-if="!user.is_followed" type="button" class="btn btn-secondary btn-sm">🔔 关注</button>
                     <button @click="unfollow" v-if="user.is_followed" type="button" class="btn btn-secondary btn-sm">取消关注</button>
@@ -20,7 +21,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+// import { computed } from 'vue';
 
 export default {
     name: 'UserProfileInfo', 
@@ -34,7 +35,7 @@ export default {
     // 动态的去计算某个属性：setup()函数需要传入参数props，因为setup()里面是没有this这个属性的。
     setup(props, context) {
         // 因为值是需要被动态计算的，所以需要传入一个函数
-        let fullName = computed(() => props.user.firstName + ' ' + props.user.lastName);
+        // let fullName = computed(() => props.user.firstName + ' ' + props.user.lastName);
 
         // “关注”事件的函数
         const follow = () => {
@@ -46,7 +47,7 @@ export default {
         };
 
         return {
-            fullName, 
+            // fullName, 
             follow, 
             unfollow, 
         }; 
@@ -73,4 +74,15 @@ button {
     padding: 2px 4px;
     font-size: 12px;
 }
+
+/* “用户动态”页面中的头像居中效果 */
+.img-field {
+    /* 用flex来设置居中效果 */
+    display: flex;
+    /* 竖直方向居中，把主轴变成垂直方向 */
+    flex-direction: column;
+    /* 居中 */
+    justify-content: center;
+}
+
 </style>
