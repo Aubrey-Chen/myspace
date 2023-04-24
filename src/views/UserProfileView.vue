@@ -40,10 +40,8 @@ export default {
     // 获取页面链接里的参数userId
     const route = useRoute();
     const userId = route.params.userId;
-    // console.log(userId);
 
     // 用户信息
-    const user = reactive({});
     // const user = reactive({
     //   id: 1, 
     //   userName: "Aubrey Chen", 
@@ -52,9 +50,8 @@ export default {
     //   followerCount: 0, 
     //   is_followed: false, 
     // });
-
+    const user = reactive({});
     // 帖子列表
-    const posts = reactive({});
     // const posts = reactive({
     //   count: 3, 
     //   posts: [
@@ -75,9 +72,10 @@ export default {
     //     }
     //   ], 
     // });
+    const posts = reactive({});
     
+    // 获取某个用户信息的API
     $.ajax({
-      // 获取某个用户信息的API
       url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/", 
       type: "GET", 
       data: {
@@ -94,6 +92,24 @@ export default {
         user.photo = resp.photo;
         user.followerCount = resp.followerCount;
         user.is_followed = resp.is_followed;
+      }, 
+    });
+
+    // 获取某个用户发表的所有帖子API
+    $.ajax({
+      url: "https://app165.acapp.acwing.com.cn/myspace/post/", 
+      type: "GET", 
+      data: {
+        user_id: userId, 
+      }, 
+      // 获取JWT验证
+      headers: {
+        'Authorization': "Bearer " + store.state.user.access, 
+      }, 
+      // 获取成功更新用户信息
+      success(resp) {
+        console.log(resp);
+        posts.posts = resp;
       }, 
     });
 
