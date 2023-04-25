@@ -6,7 +6,7 @@
         <!-- 绑定父组件的user属性 -->
         <UserProfileInfo @follow="follow" @unfollow="unfollow" :user="user" />
         <!-- 父组件的post_a_post事件触发之后，会调用父组件的post_a_post函数 -->
-        <UserProfileWrite @post_a_post="post_a_post" />  
+        <UserProfileWrite v-if="is_me" @post_a_post="post_a_post" />  
       </div>
       <div class="col-9">                                                                   
         <UserProfilePosts :posts="posts" />
@@ -24,6 +24,7 @@ import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import $ from 'jquery';
 import { useStore } from 'vuex';
+import { computed } from 'vue';
 
 export default {
   name: 'UserProfile', 
@@ -39,7 +40,8 @@ export default {
     const store = useStore();
     // 获取页面链接里的参数userId
     const route = useRoute();
-    const userId = route.params.userId;
+    // 将获取到的userId强制转换成整型
+    const userId = parseInt(route.params.userId);
 
     // 用户信息
     // const user = reactive({
@@ -134,12 +136,16 @@ export default {
       });       
     };
 
+    // 辅助计算属性，判断当前访问用户是不是自己
+    const is_me = computed(() => userId === store.state.user.id);
+
     return {
       user, 
       follow, 
       unfollow, 
       posts, 
       post_a_post, 
+      is_me, 
     };
   }, 
 };
