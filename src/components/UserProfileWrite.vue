@@ -12,24 +12,41 @@
 
 <script>
 import { ref } from 'vue';
+import $ from 'jquery';
+import { useStore } from 'vuex';
 
 export default {
-    name: "UserProfileWrite", 
-    setup(props, context) {
-        let content = ref('');  //ref值的修改和读写都需要content.value来做
+  name: "UserProfileWrite", 
+  setup(props, context) {
+    const store = useStore();
+    let content = ref('');  //ref值的修改和读写都需要content.value来做
 
-        // 定义button需绑定的click函数
-        const post_a_post = () => {
+    // 定义button需绑定的click函数
+    const post_a_post = () => {
+      $.ajax({
+        url: "https://app165.acapp.acwing.com.cn/myspace/post/", 
+        type: "POST", 
+        data: {
+          content: content.value, 
+        }, 
+        headers: {
+          'Authorization': "Bearer " + store.state.user.access, 
+        }, 
+        success(resp) {
+          if (resp.result === "success") {
             // post_a_post函数会触发父组件的post_a_post事件，参数是content.value
             context.emit('post_a_post', content.value);  
             content.value = "";  // 清空content的值
-        };
+          }
+        }
+      });
+    };
 
-        return {
-            content, 
-            post_a_post, 
-        };
-    }, 
+    return {
+      content, 
+      post_a_post, 
+    };
+  }, 
 };
 </script>
 

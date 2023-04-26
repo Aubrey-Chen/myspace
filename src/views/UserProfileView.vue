@@ -110,8 +110,8 @@ export default {
       }, 
       // 获取成功更新用户信息
       success(resp) {
-        console.log(resp);
         posts.posts = resp;
+        posts.count = resp.length;
       }, 
     });
 
