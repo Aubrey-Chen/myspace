@@ -9,7 +9,7 @@
         <UserProfileWrite v-if="is_me" @post_a_post="post_a_post" />  
       </div>
       <div class="col-9">                                                                   
-        <UserProfilePosts :posts="posts" />
+        <UserProfilePosts :user="user" :posts="posts" />
       </div>
     </div>
   </ContentBase>
