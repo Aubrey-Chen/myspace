@@ -8,8 +8,9 @@
         <!-- 父组件的post_a_post事件触发之后，会调用父组件的post_a_post函数 -->
         <UserProfileWrite v-if="is_me" @post_a_post="post_a_post" />  
       </div>
-      <div class="col-9">                                                                   
-        <UserProfilePosts :user="user" :posts="posts" />
+      <div class="col-9">
+        <!-- 父组件的delete_a_post事件触发之后，会调用父组件的delete_a_post函数 -->
+        <UserProfilePosts :user="user" :posts="posts" @delete_a_post="delete_a_post" />
       </div>
     </div>
   </ContentBase>
@@ -127,7 +128,7 @@ export default {
       user.followerCount -- ;
     };
 
-    const post_a_post = (content) => {
+    const post_a_post = content => {
       posts.count ++ ;
       posts.posts.unshift({
         id: posts.count, 
@@ -135,6 +136,12 @@ export default {
         content: content, 
       });       
     };
+
+    const delete_a_post = post_id => {
+      // 过滤：遍历posts数组里的每一个元素，判断是否应该被保留下来
+      posts.posts = posts.posts.filter(post => post.id != post_id);
+      posts.count = posts.posts.length;
+    }; 
 
     // 辅助计算属性，判断当前访问用户是不是自己
     const is_me = computed(() => userId === store.state.user.id);
@@ -145,6 +152,7 @@ export default {
       unfollow, 
       posts, 
       post_a_post, 
+      delete_a_post, 
       is_me, 
     };
   }, 

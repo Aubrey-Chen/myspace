@@ -6,7 +6,7 @@
         <div class="card single-post">
           <div class="card-body">
             {{ post.content }}
-            <button v-if="is_me" type="button" class="btn btn-danger btn-sm">删除</button>
+            <button @click="delete_a_post(post.id)" v-if="is_me" type="button" class="btn btn-danger btn-sm">删除</button>
           </div>
         </div>
       </div>
@@ -30,12 +30,17 @@ export default {
       required: true, 
     }, 
   }, 
-  setup(props) {
+  setup(props, context) {
     const store = useStore();
     let is_me = computed(() => store.state.user.id === props.user.id);
 
+    const delete_a_post = post_id => {
+        context.emit('delete_a_post', post_id);
+    };
+
     return {
       is_me, 
+      delete_a_post, 
     }
   }, 
 }; 
