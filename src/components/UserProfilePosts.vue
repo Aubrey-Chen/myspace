@@ -17,6 +17,7 @@
 <script>
 import { computed } from 'vue';
 import { useStore } from 'vuex';
+import $ from 'jquery';
 
 export default {
   name: "UserProfilePosts", 
@@ -35,7 +36,21 @@ export default {
     let is_me = computed(() => store.state.user.id === props.user.id);
 
     const delete_a_post = post_id => {
-        context.emit('delete_a_post', post_id);
+        $.ajax({
+            url: "https://app165.acapp.acwing.com.cn/myspace/post/", 
+            type: "DELETE", 
+            data: {
+                post_id, 
+            }, 
+            headers: {
+                'Authorization': 'Bearer ' + store.state.user.access, 
+            }, 
+            success(resp) {
+                if (resp.result === "success") {
+                    context.emit('delete_a_post', post_id);
+                }
+            }, 
+        });
     };
 
     return {
