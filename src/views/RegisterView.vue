@@ -50,8 +50,6 @@ export default {
     let password_confirm = ref('');
     let error_message = ref('');
 
-    console.log(store, router);
-
     const register = () => {
       // 每次登录时先清空一下error_message
       error_message.value = "";
