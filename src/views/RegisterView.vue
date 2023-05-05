@@ -65,8 +65,23 @@ export default {
           password_confirm: password_confirm.value, 
         }, 
         success(resp) {
-          console.log(resp);
-        }
+          if (resp.result === "success") {
+            // 优化：实现用户注册成功后直接登录
+            store.dispatch("login", {
+              username: username.value, 
+              password: password.value, 
+              success() {
+                // 用户登录成功跳转到好友列表页面
+                router.push({name: 'userlist'});
+              }, 
+              error() {
+                error_message.value = "系统异常，请稍后重试";
+              }, 
+            });
+          } else {
+            error_message.value = resp.result;
+          }
+        }, 
       });
     };
 
