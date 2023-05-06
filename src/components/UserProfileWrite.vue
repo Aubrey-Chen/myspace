@@ -52,10 +52,31 @@ export default {
 
 <style scoped>
 .edit-field {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 button {
-    margin-top: 10px;
+  margin-top: 10px;
+}
+
+.card-body {
+  min-width: 200px;
+  max-width: 400px;
+  margin: 0 auto;
+  max-width: 100%; /*添加max-width: 100%以保证不会溢出*/
+}
+
+/* 针对窗口宽度小于最小宽度的情况，在 .card-body 中添加一个媒体查询，并设置一个固定的宽度 */
+@media screen and (max-width: 768px) {
+  .card-body {
+    width: 200px;
+  }
+}
+
+/* 针对窗口宽度大于最大宽度的情况，在 .card-body 中添加一个媒体查询，并设置一个最大宽度 */
+@media screen and (min-width: 1200px) {
+  .card-body {
+    max-width: 400px;
+  }
 }
 </style>

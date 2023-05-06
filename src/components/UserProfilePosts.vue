@@ -63,10 +63,10 @@ export default {
 
 <style scoped>
 .single-post {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 button {
-    float: right;
+  float: right;
 }
 </style>

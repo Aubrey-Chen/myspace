@@ -113,6 +113,8 @@ button {
   flex-direction: column;
   /* 居中 */
   justify-content: center;
+  /* 设置左侧图片的宽度为30% */
+  width: 30%;
 }
 
 .col-9 {
@@ -122,5 +124,28 @@ button {
   flex-direction: column;
   /* 居中 */
   justify-content: center;
+  /* 设置右侧信息的宽度为70% */
+  width: 70%;
+}
+
+.card-body {
+  min-width: 200px;
+  max-width: 400px;
+  margin: 0 auto;
+  max-width: 100%; /*添加max-width: 100%以保证不会溢出*/
+}
+
+/* 针对窗口宽度小于最小宽度的情况，在 .card-body 中添加一个媒体查询，并设置一个固定的宽度 */
+@media screen and (max-width: 768px) {
+  .card-body {
+    width: 200px;
+  }
+}
+
+/* 针对窗口宽度大于最大宽度的情况，在 .card-body 中添加一个媒体查询，并设置一个最大宽度 */
+@media screen and (min-width: 1200px) {
+  .card-body {
+    max-width: 400px;
+  }
 }
 </style>
