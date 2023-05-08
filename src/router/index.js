@@ -10,40 +10,40 @@ import NotFoundView from '../views/NotFoundView';
 const routes = [
   // home是根目录
   {
-    path: '/',
+    path: '/myspace/',
     name: 'home',
     component: HomeView, 
   },
   {
-    path: '/userlist/',
+    path: '/myspace/userlist/',
     name: 'userlist',
     component: UserListView, 
   },
   {
-    path: '/userprofile/:userId/',
+    path: '/myspace/userprofile/:userId/',
     name: 'userprofile',
     component: UserProfileView, 
   },
   {
-    path: '/login/',
+    path: '/myspace/login/',
     name: 'login',
     component: LoginView, 
   },
   {
-    path: '/register/',
+    path: '/myspace/register/',
     name: 'register',
     component: RegisterView, 
   },
   {
-    path: '/404/',
+    path: '/myspace/404/',
     name: '404',
     component: NotFoundView, 
   }, 
   {
     // 正则表达式表示：可以匹配任意字符串
-    path: '/:catchAll(.*)', 
+    path: '/myspace/:catchAll(.*)', 
     // 重定向到404页面
-    redirect: '/404/', 
+    redirect: '/myspace/404/', 
   }
 ]
 
