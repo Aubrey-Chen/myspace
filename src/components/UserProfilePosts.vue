@@ -33,7 +33,7 @@ export default {
   }, 
   setup(props, context) {
     const store = useStore();
-    let is_me = computed(() => store.state.user.id === props.user.id);
+    const is_me = computed(() => store.state.user.id === props.user.id);
 
     const delete_a_post = post_id => {
         $.ajax({

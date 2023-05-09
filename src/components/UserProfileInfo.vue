@@ -37,7 +37,7 @@ export default {
   // 动态的去计算某个属性：setup()函数需要传入参数props，因为setup()里面是没有this这个属性的。
   setup(props, context) {
     const store = useStore();
-    let is_me = computed(() => store.state.user.id === props.user.id);
+    const is_me = computed(() => store.state.user.id === props.user.id);
 
     // “关注”事件的函数
     const follow = () => {
